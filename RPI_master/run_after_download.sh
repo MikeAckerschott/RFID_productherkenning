@@ -21,3 +21,5 @@ cmake ../
 make -j4
 cp /home/$SUDO_USER/RFID_productherkenning/RPI_master/Productherkenner.desktop /home/$SUDO_USER/Desktop
 sudo chmod a+x /home/$SUDO_USER/Desktop/Productherkenner.desktop
+sleep 3
+sudo -u $SUDO_USER -g $SUDO_USER dbus-launch gio set /home/$SUDO_USER/Desktop/Productherkenner.desktop metadata::trusted true
