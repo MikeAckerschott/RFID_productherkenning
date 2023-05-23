@@ -1,6 +1,5 @@
 #!/bin/bash
 sudo apt-get update
-sudo apt install git
 git clone https://github.com/MikeAckerschott/RFID_productherkenning.git
 sudo apt install make
 sudo apt install cmake
