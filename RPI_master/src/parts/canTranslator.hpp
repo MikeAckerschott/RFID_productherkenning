@@ -3,6 +3,7 @@
 
 #include "mcp2515.hpp"
 #include <bcm2835.h>
+#include <vector>
 
 class canTranslator
 {

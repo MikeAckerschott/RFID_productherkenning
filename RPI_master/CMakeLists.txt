@@ -8,6 +8,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/parts)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/wx)
 
 find_package(wxWidgets REQUIRED COMPONENTS core base)
+execute_process(COMMAND wx-config --libs OUTPUT_VARIABLE WX_LIBS OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 include(${wxWidgets_USE_FILE})
 
@@ -34,4 +35,4 @@ add_executable( statemachine
 )
 
 # added these lines
-target_link_libraries(statemachine bcm2835 ${wxWidgets_LIBRARIES})
+target_link_libraries(statemachine bcm2835 ${WX_LIBS})
