@@ -15,6 +15,9 @@ make
 sudo make check
 sudo make install
 cd /home/$SUDO_USER/RFID_productherkenning/
-mkdir ./RPI_master/build && cd ./RPI_master/build/
+mkdir ./RPI_master/build
+cd ./RPI_master/build/
 cmake ../
 make -j4
+cp /home/$SUDO_USER/RFID_productherkenning/RPI_master/Productherkenner.desktop /home/$SUDO_USER/Desktop
+sudo chmod a+x /home/$SUDO_USER/Desktop/Productherkenner.desktop

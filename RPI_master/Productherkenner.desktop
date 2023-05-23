@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Productherkenner
+Comment=Launches the script with sudo rights
+Exec=/bin/bash -c 'sudo /home/$USER/RFID_productherkenning/RPI_master/build/statemachine'
+Terminal=true
+Categories=Utility;
