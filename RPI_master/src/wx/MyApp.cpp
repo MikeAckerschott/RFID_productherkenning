@@ -26,15 +26,4 @@ void MyApp::OnTimer(wxTimerEvent &event)
 {
     m_context->f_do();
     m_context->checkAllTriggers();
-    // while (!m_context->wxFrameBuffer.empty())
-    // {
-    //     auto temp = m_context->wxFrameBuffer.at(0);
-    //     m_context->wxFrameBuffer.pop_front();
-    //     temp->Show(true);
-    // }
-}
-
-void MyApp::OnButtonClick(wxCommandEvent &event)
-{
-    // Create a new button frame here
 }

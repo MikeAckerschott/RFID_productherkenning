@@ -8,10 +8,6 @@
 #include <wx/wx.h>
 #endif
 
-#include "context.hpp"
-#include "state.hpp"
-#include "idleState.hpp"
-
 #include <bcm2835.h>
 #include <iostream>
 #include <fstream>
@@ -19,10 +15,9 @@
 #include <ctime>
 #include <thread>
 
-#include "bFrame.hpp"
 #include "context.hpp"
+#include "state.hpp"
 #include "idleState.hpp"
-#include "numericInputFrame.hpp"
 
 class MyApp : public wxApp
 {
@@ -32,16 +27,10 @@ public:
 
 private:
     void OnTimer(wxTimerEvent &event);
-    void OnButtonClick(wxCommandEvent &event);
 
     wxTimer m_timer;
     Context *m_context;
 };
-
-wxBEGIN_EVENT_TABLE(bFrame, wxFrame)
-    EVT_BUTTON(wxID_ANY, bFrame::OnButtonYesClick)
-        EVT_BUTTON(wxID_ANY, bFrame::OnButtonNoClick)
-            wxEND_EVENT_TABLE();
 
 wxIMPLEMENT_APP(MyApp);
 

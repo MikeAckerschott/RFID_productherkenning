@@ -1,7 +1,6 @@
 #include "canTranslator.hpp"
 #include <iostream>
 #include <map>
-#include "procesStatus.hpp"
 
 canTranslator::canTranslator(int csPin) : pin(csPin), mcp2515(csPin)
 {
@@ -106,11 +105,7 @@ bool canTranslator::dockingRequestReceived()
     int ws = bt.byte[0];
     MSG_TYPE type = (MSG_TYPE)bt.byte[1];
 
-    if (type == MSG_DOCKED_DONE)
-    {
-        return true;
-    }
-    return false;
+    return (type == MSG_DOCKED_DONE);
 }
 
 bool canTranslator::getIncomingMessageInfo(MSG_TYPE *type, short *workspace)

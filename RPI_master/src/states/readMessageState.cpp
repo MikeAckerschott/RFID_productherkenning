@@ -1,7 +1,4 @@
 #include "readMessageState.hpp"
-#include "readMessageState.hpp"
-#include "setWorkspaceState.hpp"
-#include "awaitStartupResponseState.hpp"
 #include "stationList.hpp"
 
 // TODO remove after testing
@@ -12,15 +9,7 @@
 void readMessageState::f_entry()
 {
     std::cout << "Entered read message state" << std::endl;
-
-    // std::cout << procesStatus::GetInstance()->subscribedWorkstations.size() << "-" << procesStatus::GetInstance()->subscribedWorkstations.at(0) << std::endl;
     frame = dynamic_cast<stationList *>(wxWindow::FindWindowById(stationList::FRAME_ID));
-
-    // if (procesStatus::GetInstance()->inputFrame != nullptr)
-    // {
-    //     procesStatus::GetInstance()->inputFrame->Close();
-    // }
-    // // send start msg
 }
 
 readMessageState::readMessageState() : frame(nullptr)
@@ -47,7 +36,7 @@ void readMessageState::f_do()
         {
             frame->SetCellValue(row, frame->PRODUCT_COLUMN, frame->getCellValue(row, frame->PRODUCT_COLUMN) + context_->canbus.canframeToProductInfo(context_->canbus.getStoredMessage()));
             frame->SetCellValue(row, frame->STATUS_COLUMN, frame->cellvalueOnDockRequest);
-            frame->setButtons(workspace);
+            frame->showButtons(workspace);
 
             break;
         }
@@ -63,8 +52,6 @@ void readMessageState::f_do()
 
     bool buttonOkPressed = context_->button_ok.isButtonPressed();
     bool buttonCancelPressed = context_->button_cancel.isButtonPressed();
-
-    // std::cout << "entering for loop" << std::endl;
 
     for (int i = 0; i < frame->subscribedWorkstations.size(); ++i)
     {

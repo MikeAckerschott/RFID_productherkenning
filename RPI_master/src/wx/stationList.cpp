@@ -33,7 +33,7 @@ stationList::stationList(const wxString &title, std::vector<short> workstations)
     for (int i = 0; i < workstations.size(); ++i)
     {
         SetCellValue(i, WORKSTATION_COLUMN, std::to_string(workstations.at(i)));
-        SetCellValue(i, STATUS_COLUMN, "Undocked");
+        SetCellValue(i, STATUS_COLUMN, cellvalueOnUndocked);
         SetCellValue(i, PRODUCT_COLUMN, "");
 
         workstationToRow[workstations.at(i)] = i;
@@ -43,6 +43,8 @@ stationList::stationList(const wxString &title, std::vector<short> workstations)
         status.productName = "";
 
         statusList[workstations.at(i)] = status;
+
+        createButtons(workstations.at(i));
     }
     // Hide row labels
     grid->HideRowLabels();
@@ -71,14 +73,11 @@ const wxString stationList::getCellValue(int row, int col)
     return "OUT OF BOUNDS";
 }
 
-void stationList::setButtons(int workstation)
+void stationList::createButtons(int workstation)
 {
     int row = workstationToRow[workstation];
-    wxButton *lbutton = new wxButton(panel, wxID_ANY, "No", wxPoint(550, 50 + 25 * row), wxSize(40, 25));
-    wxButton *rbutton = new wxButton(panel, wxID_ANY, "Yes", wxPoint(600, 50 + 25 * row), wxSize(40, 25));
-
-    // button_OK.push_back(rbutton);
-    // button_CANCEL.push_back(lbutton);
+    wxButton *lbutton = new wxButton(panel, wxID_ANY, "No", wxPoint(550, 50 + (25 * row)), wxSize(40, 25));
+    wxButton *rbutton = new wxButton(panel, wxID_ANY, "Yes", wxPoint(600, 50 + (25 * row)), wxSize(40, 25));
 
     buttonHolder holder;
     holder.button_OK = rbutton;
@@ -96,33 +95,28 @@ void stationList::setButtons(int workstation)
 
     lbutton->SetClientData(static_cast<void *>(holder.data.get()));
     rbutton->SetClientData(static_cast<void *>(holder.data.get()));
+
+    removeButtons(workstation);
 }
 
 void stationList::removeButtons(int workstation)
 {
-    workstationButtons[workstation].button_OK;
-    workstationButtons[workstation].button_CANCEL;
-
     std::cout << "removing buttons for workstation: " << workstation << " on row: " << workstationToRow[workstation] << std::endl;
 
-    if (workstationButtons[workstation].button_OK != nullptr)
-    {
-        std::cout << "destroying button ok" << std::endl;
-        workstationButtons[workstation].button_OK->Destroy();
-        workstationButtons[workstation].button_OK = nullptr;
-    }
-    if (workstationButtons[workstation].button_CANCEL != nullptr)
-    {
-        std::cout << "destroying button cancel" << std::endl;
-        workstationButtons[workstation].button_CANCEL->Destroy();
-        workstationButtons[workstation].button_CANCEL = nullptr;
-    }
-    if (buttonSizer != nullptr)
-    {
-        std::cout << "deleting buttonSizer" << std::endl;
-        delete buttonSizer;
-        buttonSizer = nullptr;
-    }
+    workstationButtons[workstation].button_OK->Enable(false);
+    workstationButtons[workstation].button_OK->Show(false);
+
+    workstationButtons[workstation].button_CANCEL->Enable(false);
+    workstationButtons[workstation].button_CANCEL->Show(false);
+}
+
+void stationList::showButtons(int workstation)
+{
+    workstationButtons[workstation].button_OK->Enable(true);
+    workstationButtons[workstation].button_OK->Show(true);
+
+    workstationButtons[workstation].button_CANCEL->Enable(true);
+    workstationButtons[workstation].button_CANCEL->Show(true);
 }
 
 void stationList::OnButtonYesClick(wxCommandEvent &event)

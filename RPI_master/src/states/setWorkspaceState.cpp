@@ -2,7 +2,6 @@
 #include "canTranslator.hpp"
 #include "numericInputFrame.hpp"
 #include "idleState.hpp"
-#include "procesStatus.hpp"
 
 #include <thread>
 #include <chrono>
@@ -36,14 +35,14 @@ void setWorkspaceState::f_do()
 
 void setWorkspaceState::f_exit()
 {
-    newWs = frame->newWs;
+    newWs = frame->getNewWs();
     std::cout << "set workspace to " << newWs << std::endl;
     std::vector<uint8_t> data;
     data.push_back(newWs);
 
     this->context_->canbus.sendMessage(0, canTranslator::MSG_WS_RESPONSE, data);
-    frame->valueGiven = false;
-    frame->newWs = 0;
+    frame->setValueGiven(false);
+    frame->setNewWs(0);
 }
 
 bool setWorkspaceState::checkAllTriggers()
@@ -60,7 +59,7 @@ bool setWorkspaceState::checkAllTriggers()
 bool setWorkspaceState::triggerIntegerReceived()
 {
 
-    if (frame->valueGiven)
+    if (frame->isValueGiven())
     {
         this->context_->TransitionTo(new idleState);
         return true;

@@ -8,7 +8,6 @@ Button::Button(int bPin):pin(bPin){
     bcm2835_gpio_fsel(pin, BCM2835_GPIO_FSEL_INPT);
     bcm2835_gpio_set_pud(pin, BCM2835_GPIO_PUD_DOWN);
 
-    //TODO check if delaying could possibly cause problems (like realtime behaviour)
     bcm2835_delay(10);
 
     lastButtonState = false;

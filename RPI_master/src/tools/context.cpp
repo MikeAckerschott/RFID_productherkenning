@@ -1,7 +1,5 @@
 #include "context.hpp"
 #include <iostream>
-#include "bFrame.hpp"
-#include "procesStatus.hpp"
 
 Context::Context(State *state) : state_(nullptr), button_ok(BUTTON_OK_PIN), canbus(MCP2515_CS_PIN), button_cancel(BUTTON_CANCEL_PIN)
 {

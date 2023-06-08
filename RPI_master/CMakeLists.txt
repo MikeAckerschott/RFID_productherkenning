@@ -19,15 +19,12 @@ add_executable( statemachine
 
 	src/tools/context.cpp
 	src/tools/state.cpp
-	src/tools/procesStatus.cpp
-	
+
 	src/states/idleState.cpp
 	src/states/readMessageState.cpp
 	src/states/setWorkspaceState.cpp
-	src/states/validateIncomingMessageState.cpp
 	src/states/awaitStartupResponseState.cpp
 
-	src/wx/bFrame.cpp
 	src/wx/MyApp.cpp
 	src/wx/numericInputFrame.cpp
 	src/wx/stationList.cpp

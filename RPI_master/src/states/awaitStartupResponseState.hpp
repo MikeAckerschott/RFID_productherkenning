@@ -19,6 +19,7 @@ public:
 private:
     std::chrono::milliseconds ms;
     std::vector<short> subscribedWorkstations;
+    std::vector<short> duplicateWorkstations;
 };
 
 #endif /*AWAITSTARTUPRESPONSESTATE_HPP_*/

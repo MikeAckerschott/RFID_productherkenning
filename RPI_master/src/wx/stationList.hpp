@@ -5,9 +5,10 @@
 #include <wx/grid.h>
 #include <wx/gbsizer.h>
 #include <memory>
+#include <map>
+#include <vector>
 
-#include "stationList.hpp"
-#include "procesStatus.hpp"
+#include "numericInputFrame.hpp"
 
 class stationList : public wxFrame
 {
@@ -16,13 +17,11 @@ public:
 
     void SetCellValue(int row, int col, const wxString &value);
     const wxString getCellValue(int row, int col);
-    void setButtons(int workstation);
+    void createButtons(int workstation);
     void removeButtons(int workstation);
+    void showButtons(int workstation);
     void OnButtonYesClick(wxCommandEvent &event);
     void OnButtonNoClick(wxCommandEvent &event);
-
-    std::vector<wxButton *> button_OK;
-    std::vector<wxButton *> button_CANCEL;
 
     struct buttonHolder
     {
@@ -47,9 +46,8 @@ public:
     };
 
     std::map<short, productStatus> statusList;
-    std::vector<short> subscribedWorkstations;
-    std::map<short, buttonHolder> workstationButtons;
     std::map<short, short> workstationToRow;
+    std::vector<short> subscribedWorkstations;
     NumericInputFrame *inputFrame;
 
     static const short FRAME_ID = 10;
@@ -59,7 +57,6 @@ public:
     const std::string cellvalueOnDockCancelling = "CANCELLING DOCKING";
     const std::string cellvalueOnUndocked = "UNDOCKED";
     const std::string cellvalueOnDockRequest = "DOCK REQUEST";
-
 
     const short WORKSTATION_COLUMN = 0;
     const short STATUS_COLUMN = 1;
@@ -72,8 +69,7 @@ private:
     wxBoxSizer *sizer;
     wxBoxSizer *buttonSizer;
 
-    void OnButtonClicked(wxCommandEvent &event);
-
+    std::map<short, buttonHolder> workstationButtons;
     wxDECLARE_EVENT_TABLE();
 };
 

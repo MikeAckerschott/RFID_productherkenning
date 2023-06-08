@@ -10,9 +10,6 @@ public:
     void OnButtonClicked(wxCommandEvent &event);
     void resetFrame();
 
-    bool valueGiven;
-    long newWs;
-
     static const short FRAME_ID = 11;
 
     enum wxFields
@@ -22,12 +19,21 @@ public:
         TEXTFIELD = 3
     };
 
+    bool isValueGiven();
+    void setValueGiven(bool newValue);
+    long getNewWs();
+    void setNewWs(long newValue);
+
+
 private:
     wxPanel *panel;
     wxBoxSizer *sizer;
     wxTextCtrl *textField;
     wxButton *button;
     wxStaticText *label;
+
+    bool valueGiven;
+    long newWs;
 };
 
 #endif /* NUMERIC_INPUT_FRAME_HPP_ */
